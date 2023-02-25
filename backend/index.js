@@ -2,6 +2,7 @@ import express from 'express';
 
 /** Zentrales Objekt für unsere Express-Applikation */
 const app = express();
+const port = 3000;
 
 /**
  * Liste aller ToDos. 
@@ -23,3 +24,10 @@ let TODOS = [
 ];
 
 // Your code here
+app.get('/', (req, res) => {
+    res.send(TODOS)
+    })
+
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+    })
