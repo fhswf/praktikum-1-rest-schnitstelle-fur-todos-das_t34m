@@ -9,14 +9,14 @@ lokal auf Ihrem Rechner, wenn Sie lieber lokal arbeiten.
 
 ## Aufgabe 0: Initialisieren Sie Ihr Projekt
 
-- [ ] Wechseln Sie ins Verzeichnis `todo/backend` und führen Sie dort
+- [x] Wechseln Sie ins Verzeichnis `todo/backend` und führen Sie dort
 
   ```Shell
   npm install
   ```
 
   aus.
-- [ ] Starten Sie Ihr Projekt mit
+- [x] Starten Sie Ihr Projekt mit
 
   ```Shell
   npm start
