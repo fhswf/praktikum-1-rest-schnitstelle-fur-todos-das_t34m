@@ -2,6 +2,7 @@ import express from 'express';
 
 /** Zentrales Objekt für unsere Express-Applikation */
 const app = express();
+const port = 3000;
 
 /**
  * Liste aller ToDos. 
