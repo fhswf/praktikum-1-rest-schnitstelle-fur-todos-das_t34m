@@ -24,4 +24,3 @@ let TODOS = [
 ];
 
 // Your code here
-console.log("das ist voll toll")
