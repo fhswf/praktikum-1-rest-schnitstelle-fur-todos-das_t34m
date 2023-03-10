@@ -27,3 +27,91 @@ let TODOS = [
 ];
 
 // Your code here
+/**
+ * Willkommen auf dem Server!
+ * Wird hinterher angepasst.
+ */
+app.get('/', (req, res) => {
+    res.status(200);
+    res.send("Hello Todo Server!");
+});
+
+/**
+ * Auslesen aller Todos
+ */
+app.get('/todos', (req, res) => {
+    res.status(200);
+    res.json(TODOS);
+});
+
+/**
+ * Einzelnes Todoe auslesen
+ */
+app.get('/todos/:id', (req, res) => {
+    const todo = TODOS.find(todo => todo.id === parseInt(req.params.id));
+    if (!todo) res.status(404).send('Ein Todo mit der angegebenen Nummer existiert nicht!');
+    res.json(todo);
+});
+
+/**
+ * Todoe erstellen
+ */
+
+app.post('/todos', (req, res) => {
+    const schema = Joi.object({
+        title: Joi.string().min(3).required(),
+        due: Joi.date().required(),
+        status: Joi.number().min(0).max(2).required()
+    });
+
+    const result = schema.validate(req.body);
+    if(result.error) {
+        res.status(400).send(result.error.details[0].message);
+        return;
+    }
+
+    const { title, due, status } = req.body;
+    const todo = {
+        id: Date.now(),
+        title: title,
+        due: due,
+        status: status,
+    };
+
+    TODOS.push(todo);
+    res.json(todo);
+});
+
+app.put('/todos/:id', (req, res) => {
+    const todo = TODOS.find(todo => todo.id === parseInt(req.params.id));
+    if (!todo) res.status(404).send('Ein Todo mit der angegebenen Nummer existiert nicht!');
+
+    const schema = Joi.object({
+        title: Joi.string().min(3).required(),
+        due: Joi.date().required(),
+        status: Joi.number().min(0).max(2).required()
+    });
+
+    const result = schema.validate(req.body);
+    if(result.error) {
+        res.status(400).send(result.error.details[0].message);
+        return;
+    }
+
+    const {title, due, status} = req.body;
+
+    todo.title = title;
+    todo.due = due;
+    todo.status = status;
+
+    res.send(todo);
+});
+
+
+/**
+ * Server starten
+ */
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Example app listening on port http://localhost:${port}`);
+});
