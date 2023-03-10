@@ -31,7 +31,7 @@ eine Funktion um und hinterher mergen Sie Ihren Code.
 - [x] Create zum Anlegen eines ToDos,
 - [x] Read eines einzelnen ToDos,
 - [x] Update eines ToDos,
-- [ ] Delete eines ToDos.
+- [x] Delete eines ToDos.
 
 > **Note**<br>
 > Um den Inhalt des Requests (den *Body*) als JSON-Objekt zu lesen, benötigen Sie die [Body Parser Middleware](https://expressjs.com/en/resources/middleware/body-parser.html)!
