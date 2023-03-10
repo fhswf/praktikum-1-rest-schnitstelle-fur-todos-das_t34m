@@ -49,7 +49,7 @@ app.get('/todos', (req, res) => {
  */
 app.get('/todos/:id', (req, res) => {
     const todo = TODOS.find(todo => todo.id === parseInt(req.params.id));
-    if (!todo) res.status(404).send('Ein Todo mit der angegebenen Nummer existiert nicht!');
+    if (!todo) return res.status(404).send('Ein Todo mit der angegebenen Nummer existiert nicht!');
     res.json(todo);
 });
 
@@ -59,10 +59,7 @@ app.get('/todos/:id', (req, res) => {
 
 app.post('/todos', (req, res) => {
     const { error } = validateTodo(req.body);
-    if (error) {
-        res.status(400).send(error.details[0].message);
-        return;
-    }
+    if (error) return res.status(400).send(error.details[0].message);
 
     const { title, due, status } = req.body;
     const todo = {
@@ -78,19 +75,27 @@ app.post('/todos', (req, res) => {
 
 app.put('/todos/:id', (req, res) => {
     const todo = TODOS.find(todo => todo.id === parseInt(req.params.id));
-    if (!todo) res.status(404).send('Ein Todo mit der angegebenen Nummer existiert nicht!');
+    if (!todo) return res.status(404).send('Ein Todo mit der angegebenen Nummer existiert nicht!');
 
     const { error } = validateTodo(req.body);
-    if (error) {
-        res.status(400).send(error.details[0].message);
-        return;
-    }
-
+    if (error) return res.status(400).send(error.details[0].message);
+    
     const { title, due, status } = req.body;
 
     todo.title = title;
     todo.due = due;
     todo.status = status;
+
+    res.send(todo);
+});
+
+app.delete('/todos/:id', (req, res) => {
+    const todo = TODOS.find(todo => todo.id === parseInt(req.params.id));
+    if (!todo) return res.status(404).send('Ein Todo mit der angegebenen Nummer existiert nicht!');
+
+    const index = TODOS.indexOf(todo);
+    console.log(index);
+    TODOS.splice(index, 1);
 
     res.send(todo);
 });
